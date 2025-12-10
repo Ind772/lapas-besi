@@ -28,7 +28,7 @@
         {{-- Badge --}}
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full mb-6">
             <i class="fas fa-building text-lapas-accent"></i>
-            <span class="text-sm font-semibold">Website Resmi Satuan Kerja Kemenkumham RI</span>
+            <span class="text-sm font-semibold">Portal Resmi</span>
         </div>
 
         <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">{{ $judul }}</h1>
@@ -52,37 +52,6 @@
         <i class="fas fa-chevron-down text-white text-2xl"></i>
     </div>
 </header>
-
-{{-- INFO CARDS --}}
-<section class="relative -mt-20 z-20">
-    <div class="container mx-auto px-6">
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition border-t-4 border-lapas-navy">
-                <div class="w-16 h-16 bg-gradient-to-br from-lapas-navy to-lapas-blue rounded-lg flex items-center justify-center mb-4 mx-auto shadow-md">
-                    <i class="fas fa-shield-alt text-3xl text-white"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2 text-center text-lapas-navy">Keamanan Maksimal</h3>
-                <p class="text-gray-600 text-center text-sm">Standar keamanan tinggi dengan sistem pengawasan 24/7</p>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition border-t-4 border-lapas-accent">
-                <div class="w-16 h-16 bg-gradient-to-br from-lapas-accent to-blue-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-md">
-                    <i class="fas fa-balance-scale text-3xl text-white"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2 text-center text-lapas-navy">Berbasis HAM</h3>
-                <p class="text-gray-600 text-center text-sm">Pembinaan yang menghormati hak asasi manusia</p>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-xl p-8 hover:shadow-2xl transition border-t-4 border-gray-800">
-                <div class="w-16 h-16 bg-gradient-to-br from-gray-800 to-black rounded-lg flex items-center justify-center mb-4 mx-auto shadow-md">
-                    <i class="fas fa-star text-3xl text-white"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2 text-center text-lapas-navy">Zona Integritas</h3>
-                <p class="text-gray-600 text-center text-sm">Wilayah Bebas dari Korupsi (WBK)</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 {{-- SECTION PROFIL (NEW) --}}
 <section id="profil" class="py-20 bg-gray-50">
@@ -198,7 +167,7 @@
                     </span>
                 </div>
                 <h2 class="text-4xl font-bold text-lapas-navy">Kabar Lapas Besi</h2>
-                <p class="text-gray-600 mt-2">Update kegiatan dari Kompasiana Lapas Besi</p>
+                <p class="text-gray-600 mt-2">Update kegiatan dari Lapas Besi</p>
             </div>
             <a href="https://www.kompasiana.com/rezanaagustyan8132" 
                target="_blank" 

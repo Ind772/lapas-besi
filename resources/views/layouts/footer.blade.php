@@ -3,8 +3,8 @@
         <div class="container mx-auto px-6 grid md:grid-cols-4 gap-12">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-14 h-14 bg-white rounded-lg flex items-center justify-center shadow-lg">
-                        <i class="fas fa-shield-alt text-2xl text-lapas-navy"></i>
+                    <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="{{ asset('images/logo-besi.png') }}" alt="Logo Besi" class="w-15 h-15 object-contain">
                     </div>
                     <div>
                         <h3 class="text-white text-xl font-bold uppercase">Lapas Kelas IIA Besi</h3>
@@ -37,13 +37,10 @@
                         <i class="fas fa-chevron-right text-xs text-lapas-accent"></i> Profil Pejabat
                     </a></li>
                     <li><a href="#" class="hover:text-white transition flex items-center gap-2">
-                        <i class="fas fa-chevron-right text-xs text-lapas-accent"></i> Standar Pelayanan
-                    </a></li>
-                    <li><a href="#" class="hover:text-white transition flex items-center gap-2">
                         <i class="fas fa-chevron-right text-xs text-lapas-accent"></i> Pengaduan Masyarakat
                     </a></li>
-                    <li><a href="https://www.kemenkumham.go.id" target="_blank" class="hover:text-white transition flex items-center gap-2">
-                        <i class="fas fa-chevron-right text-xs text-lapas-accent"></i> Kemenkumham RI
+                    <li><a href="https://www.kemenimipas.go.id" target="_blank" class="hover:text-white transition flex items-center gap-2">
+                        <i class="fas fa-chevron-right text-xs text-lapas-accent"></i> Kemenimipas RI
                     </a></li>
                 </ul>
             </div>

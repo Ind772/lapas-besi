@@ -18,8 +18,8 @@
             {{-- Logo & Brand --}}
             <div class="flex items-center space-x-4">
                 <a href="{{ route('landing') }}" class="flex items-center gap-3">
-                    <div class="w-14 h-14 bg-gradient-to-br from-lapas-navy to-lapas-blue rounded-lg flex items-center justify-center shadow-md">
-                        <img src="{{ asset('images/logo_kemenimipas.png') }}" alt="Logo Kemenimipas" class="w-10 h-10 object-contain">
+                    <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="{{ asset('images/logo-besi.png') }}" alt="Logo Besi" class="w-15 h-15 object-contain">
                     </div>
                     <div>
                         <h1 class="text-lg font-bold text-lapas-navy uppercase tracking-wide">Lapas Kelas IIA Besi</h1>
