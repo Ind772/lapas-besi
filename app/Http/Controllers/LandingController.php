@@ -19,8 +19,8 @@ class LandingController extends Controller
         $sliders = Slider::where('is_active', true)->get();
         $layanans = Layanan::all();
 
-        // 2. Scraping Berita (Cache 10 menit)
-        $beritaKompasiana = Cache::remember('kompasiana_berita_v6', 600, function () {
+        // 2. Scraping Berita (Cache 1 menit)
+        $beritaKompasiana = Cache::remember('kompasiana_berita_v6', 60, function () {
             return $this->scrapeKompasiana();
         });
 
