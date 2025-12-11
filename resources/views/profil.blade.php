@@ -53,13 +53,29 @@
                 </p>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-gradient-to-br from-lapas-navy to-lapas-blue p-6 rounded-xl text-white text-center shadow-lg">
-                        <div class="text-3xl font-bold mb-1">500+</div>
-                        <div class="text-sm text-gray-200">Kapasitas WBP</div>
+                    <div class="bg-gradient-to-br from-lapas-navy to-lapas-blue p-6 rounded-xl text-white shadow-lg flex items-center gap-4">
+                        <div class="w-12 h-12 bg-lapas-accent rounded-lg flex items-center justify-center">
+                            <!-- ICON WBP -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 1.5c-2.7 0-8 1.35-8 4v1h16v-1c0-2.65-5.3-4-8-4Zm7-8.5a3 3 0 1 1-3 3" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <div class="text-3xl font-bold text-gray-200">500+</div>
+                            <div class="text-sm text-gray-200">WBP</div>
+                        </div>
                     </div>
-                    <div class="bg-gradient-to-br from-lapas-accent to-blue-600 p-6 rounded-xl text-white text-center shadow-lg">
-                        <div class="text-3xl font-bold mb-1">100+</div>
-                        <div class="text-sm text-gray-200">Petugas</div>
+
+                    <div class="bg-gradient-to-br from-lapas-navy to-lapas-blue p-6 rounded-xl text-white shadow-lg flex items-center gap-4">
+                        <div class="w-12 h-12 bg-lapas-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-award text-white text-xl"></i>
+                        </div>
+
+                        <div>
+                            <div class="text-sm text-gray-200">Status</div>
+                            <div class="font-bold text-gray-200">Zona Integritas WBK</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,18 +86,6 @@
                          alt="Lapas Besi" 
                          class="w-full h-96 object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
-                
-                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border-4 border-gray-50">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-lapas-accent rounded-lg flex items-center justify-center">
-                            <i class="fas fa-award text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-sm text-gray-600">Status</div>
-                            <div class="font-bold text-lapas-navy">Zona Integritas WBK</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -113,7 +117,7 @@
                         <span>VISI</span>
                     </h3>
                     <p class="text-lg leading-relaxed text-gray-100">
-                        Mewujudkan Lembaga Pemasyarakatan yang profesional, humanis, dan berintegritas dalam membina Warga Binaan Pemasyarakatan menuju reintegrasi sosial yang berkelanjutan.
+                        "Terwujudnya Penegakan Hukum dan Pelayanan Keimigrasian dan Pemasyarakatan untuk Stabilitas Keamanan yang Tangguh menuju Indonesia Emas 2045".
                     </p>
                 </div>
             </div>
@@ -124,32 +128,32 @@
                     <i class="fas fa-bullseye text-3xl text-white"></i>
                 </div>
                 <h3 class="text-2xl font-bold mb-6 text-lapas-navy flex items-center gap-3">
-                    <span>MISI</span>
+                    <span>MISI & TUJUAN</span>
                 </h3>
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
                         <div class="w-8 h-8 bg-lapas-accent rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                             <i class="fas fa-check text-white text-sm"></i>
                         </div>
-                        <span class="text-gray-700">Melaksanakan pembinaan narapidana berbasis hak asasi manusia</span>
+                        <span class="text-gray-700">Mewujudkan Penegakan Hukum dan pelayanan serta jaminan pelindungan Imigrasi dan Pemasyarakatan yang transparan dan berkeadilan.</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <div class="w-8 h-8 bg-lapas-accent rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                             <i class="fas fa-check text-white text-sm"></i>
                         </div>
-                        <span class="text-gray-700">Meningkatkan keamanan dan ketertiban di lingkungan lapas</span>
+                        <span class="text-gray-700">Menciptakan penegakan dan pelayanan hukum untuk mendukung kedaulatan negara serta reintegrasi sosial secara transparan dan berkeadilan.</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <div class="w-8 h-8 bg-lapas-accent rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                             <i class="fas fa-check text-white text-sm"></i>
                         </div>
-                        <span class="text-gray-700">Mengembangkan program pembinaan kepribadian dan kemandirian</span>
+                        <span class="text-gray-700">Meningkatkan kapasitas kelembagaan Imigrasi dan Pemasyarakatan yang modern, profesional, dan berintegritas.</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <div class="w-8 h-8 bg-lapas-accent rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                             <i class="fas fa-check text-white text-sm"></i>
                         </div>
-                        <span class="text-gray-700">Membangun kerjasama dengan stakeholder terkait</span>
+                        <span class="text-gray-700">Menciptakan sistem keimigrasian dan pemasyarakatan yang modern, terintegrasi dan akuntabel melalui peningkatan kompetensi dan profesionalisme sumber daya manusia yang berintegritas, responsif dan adaptif di bidang Imigrasi dan Pemasyarakatan.</span>
                     </li>
                 </ul>
             </div>
@@ -295,24 +299,25 @@
             <h2 class="text-4xl font-bold text-lapas-navy mb-4">Nilai-Nilai Kami</h2>
             <div class="w-24 h-1 bg-gradient-to-r from-lapas-navy via-lapas-accent to-lapas-navy mx-auto"></div>
         </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             @php
             $nilai = [
-                ['icon' => 'fa-shield-alt', 'title' => 'Integritas', 'desc' => 'Konsisten dalam menjalankan tugas dengan jujur dan bertanggung jawab', 'color' => 'from-lapas-navy to-lapas-blue', 'border' => 'border-lapas-navy'],
-                ['icon' => 'fa-hands-helping', 'title' => 'Profesional', 'desc' => 'Bekerja dengan kompetensi tinggi dan dedikasi penuh', 'color' => 'from-lapas-accent to-blue-600', 'border' => 'border-lapas-accent'],
-                ['icon' => 'fa-heart', 'title' => 'Humanis', 'desc' => 'Menghormati hak asasi manusia dalam setiap tindakan', 'color' => 'from-yellow-600 to-yellow-700', 'border' => 'border-lapas-gold'],
-                ['icon' => 'fa-sync-alt', 'title' => 'Inovatif', 'desc' => 'Terus berinovasi dalam metode pembinaan yang efektif', 'color' => 'from-green-600 to-green-700', 'border' => 'border-green-600'],
+                ['icon' => 'fa-user-tie', 'title' => 'Profesional', 'desc' => 'Kementerian Imigrasi dan Pemasyarakatan menjalankan tugas dan fungsi secara profesional, sesuai dengan keahlian dan kompetensi, berlandaskan dengan ilmu terkait bidangnya serta dilakukan dengan pendekatan yang humanis dengan menjunjung tinggi nilai-nilai kemanusiaan.', 'color' => 'from-lapas-navy to-lapas-blue', 'border' => 'border-lapas-navy'],
+                ['icon' => 'fa-bolt', 'title' => 'Responsif', 'desc' => 'Kementerian Imigrasi dan Pemasyarakatan memberikan layanan secara cepat, tepat dan tanggap dalam melayani kebutuhan masyarakat baik kebutuhan yang terkait bidang imigrasi maupun pemasyarkatan.', 'color' => 'from-lapas-accent to-blue-600', 'border' => 'border-lapas-accent'],
+                ['icon' => 'fa-certificate', 'title' => 'Integritas', 'desc' => 'Kementerian Imigrasi dan Pemasyarakatan menjunjung tinggi nilai integritas dalam menjalankan tugas dan fungsinya. Integritas dicerminkan dalam bentuk perilaku jujur dalam bersikap dan bertindak dan berkeadilan dalam penegakkan hukum.', 'color' => 'from-yellow-600 to-yellow-700', 'border' => 'border-lapas-gold'],
+                ['icon' => 'fa-laptop-code', 'title' => 'Modern', 'desc' => 'Kementerian Imigrasi dan Pemasyarakatan menggunakan sistem dan teknologi informasi yang modern dalam mendukung pelaksanaan tugas dan fungsi serta dilakukan secara transparan dalam memberikan pelayanan kepada masyarakat.', 'color' => 'from-green-600 to-green-700', 'border' => 'border-green-600'],
+                ['icon' => 'fa-check-circle', 'title' => 'Akuntabel', 'desc' => 'Kementerian Imigrasi dan Pemasyarakatan menjalankan tugas dan fungsi secara bertanggungjawab sesuai dengan ketentuan hukum dan peraturan yang berlaku.', 'color' => 'from-lapas-navy to-lapas-blue', 'border' => 'border-lapas-navy']
             ];
             @endphp
-
             @foreach($nilai as $n)
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition group border-t-4 {{ $n['border'] }}">
+            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition group border-t-4 {{ $n['border'] }} flex flex-col items-center text-center">
                 <div class="w-16 h-16 bg-gradient-to-br {{ $n['color'] }} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <i class="fas {{ $n['icon'] }} text-2xl text-white"></i>
                 </div>
                 <h3 class="text-xl font-bold text-lapas-navy mb-3">{{ $n['title'] }}</h3>
-                <p class="text-gray-600 text-sm">{{ $n['desc'] }}</p>
+                <p class="text-gray-600 text-m">
+                    {{ $n['desc'] }}
+                </p>
             </div>
             @endforeach
         </div>
@@ -329,7 +334,7 @@
                     Hubungi kami untuk informasi layanan, kunjungan, atau pertanyaan lainnya
                 </p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <a href="{{ route('landing') }}#kontak" class="bg-white text-lapas-navy hover:bg-gray-100 font-bold py-4 px-8 rounded-lg shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 inline-flex items-center justify-center gap-2">
+                    <a href="http://wa.me/6281393456571" class="bg-white text-lapas-navy hover:bg-gray-100 font-bold py-4 px-8 rounded-lg shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 inline-flex items-center justify-center gap-2">
                         <i class="fas fa-phone"></i> Hubungi Kami
                     </a>
                     <a href="{{ route('landing') }}" class="border-2 border-white hover:bg-white hover:text-lapas-navy font-bold py-4 px-8 rounded-lg shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 inline-flex items-center justify-center gap-2">

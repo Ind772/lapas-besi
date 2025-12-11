@@ -15,14 +15,14 @@
                     Lembaga Pemasyarakatan yang mengedepankan keamanan serta pembinaan kepribadian dan kemandirian Warga Binaan Pemasyarakatan.
                 </p>
                 <div class="flex space-x-3">
-                    <a href="#" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
+                    <a href="https://www.facebook.com/lapasbesimax/" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
                         <i class="fab fa-facebook-f group-hover:text-white"></i>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
+                    <a href="https://www.instagram.com/lapasbesimax/" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
                         <i class="fab fa-instagram group-hover:text-white"></i>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
-                        <i class="fab fa-youtube group-hover:text-white"></i>
+                    <a href="https://www.tiktok.com/@humasbesimax" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-lapas-accent flex items-center justify-center transition group">
+                        <i class="fab fa-tiktok group-hover:text-white"></i>
                     </a>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 </p>
                 <p class="flex items-center gap-2">
                     <i class="fas fa-code text-lapas-accent"></i>
-                    Dikembangkan dengan <span class="text-red-400">❤</span>
+                    Dikembangkan oleh <span class="text-red-400">Anak Magang</span>
                 </p>
             </div>
         </div>
