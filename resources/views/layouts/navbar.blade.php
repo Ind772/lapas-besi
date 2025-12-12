@@ -29,27 +29,46 @@
             </div>
 
             {{-- Navigation Menu --}}
-            <div class="hidden md:flex space-x-1" id="navbarMenu">
+            <div class="hidden md:flex space-x-1 relative" id="navbarMenu">
                 <a href="{{ route('landing') }}" 
-                   class="px-4 py-2 rounded transition {{ request()->routeIs('landing') ? 'text-lapas-navy font-semibold border-b-2 border-lapas-accent' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
+                data-nav="beranda"
+                class="nav-link px-4 py-2 rounded transition {{ request()->routeIs('landing') && !request()->has('_fragment') ? 'text-lapas-navy font-semibold' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
                     Beranda
                 </a>
-                <a href="{{ route('profil') }}" 
-                   class="px-4 py-2 rounded transition {{ request()->routeIs('profil') ? 'text-lapas-navy font-semibold border-b-2 border-lapas-accent' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
-                    Profil
-                </a>
+                
+                {{-- Link Profil: Jika di landing scroll ke section, jika tidak redirect ke halaman profil --}}
+                @if(request()->routeIs('landing'))
+                    <a href="#profil" 
+                    data-nav="profil"
+                    class="nav-link px-4 py-2 rounded transition text-gray-600 hover:text-lapas-navy hover:bg-gray-100">
+                        Profil
+                    </a>
+                @else
+                    <a href="{{ route('profil') }}" 
+                    data-nav="profil"
+                    class="nav-link px-4 py-2 rounded transition {{ request()->routeIs('profil') ? 'text-lapas-navy font-semibold' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
+                        Profil
+                    </a>
+                @endif
+                
                 <a href="{{ route('landing') }}#layanan" 
-                   class="px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                data-nav="layanan"
+                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Layanan
                 </a>
                 <a href="{{ route('landing') }}#berita" 
-                   class="px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                data-nav="berita"
+                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Berita
                 </a>
                 <a href="{{ route('landing') }}#kontak" 
-                   class="px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                data-nav="kontak"
+                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Kontak
                 </a>
+                
+                {{-- Animated Underline --}}
+                <div id="navUnderline" class="absolute bottom-0 h-0.5 bg-lapas-accent transition-all duration-300 ease-out"></div>
             </div>
 
             {{-- Mobile Menu Button --}}
@@ -86,14 +105,58 @@
 
 @push('scripts')
 <script>
-    // Mobile Menu Toggle
     document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Animated Underline for Desktop Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const underline = document.getElementById('navUnderline');
+        
+        if (underline && navLinks.length > 0) {
+            // Function untuk move underline (dibuat global agar bisa diakses dari app.blade.php)
+            window.moveUnderline = function(link) {
+                if (!link) return;
+                
+                const linkRect = link.getBoundingClientRect();
+                const navRect = link.parentElement.getBoundingClientRect();
+                
+                underline.style.width = linkRect.width + 'px';
+                underline.style.left = (linkRect.left - navRect.left) + 'px';
+                underline.style.opacity = '1';
+            };
+            
+            // Set initial position based on active link
+            const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
+            window.moveUnderline(activeLink);
+            
+            // Add hover effect
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    window.moveUnderline(this);
+                });
+            });
+            
+            // Reset to active link when mouse leaves nav
+            const navMenu = document.getElementById('navbarMenu');
+            if (navMenu) {
+                navMenu.addEventListener('mouseleave', function() {
+                    const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
+                    window.moveUnderline(activeLink);
+                });
+            }
+            
+            // Update underline on window resize
+            window.addEventListener('resize', function() {
+                const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
+                window.moveUnderline(activeLink);
             });
         }
     });

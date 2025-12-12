@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Slider;
-use App\Models\Layanan;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
 use Illuminate\Support\Facades\Cache;
@@ -15,11 +13,7 @@ class LandingController extends Controller
 {
     public function index()
     {
-        // 1. Slider & Layanan (Database Lokal)
-        $sliders = Slider::where('is_active', true)->get();
-        $layanans = Layanan::all();
-
-        // 2. Scraping Berita (Cache 1 menit)
+        // Scraping Berita (Cache 1 menit)
         $beritaKompasiana = Cache::remember('kompasiana_berita_v6', 60, function () {
             return $this->scrapeKompasiana();
         });
@@ -27,7 +21,7 @@ class LandingController extends Controller
         $highlight = $beritaKompasiana->first();
         $beritas = $beritaKompasiana->skip(1)->take(4);
 
-        return view('welcome', compact('sliders', 'layanans', 'highlight', 'beritas'));
+        return view('welcome', compact('highlight', 'beritas'));
     }
 
     /**

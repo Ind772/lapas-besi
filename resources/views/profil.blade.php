@@ -55,7 +55,6 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-gradient-to-br from-lapas-navy to-lapas-blue p-6 rounded-xl text-white shadow-lg flex items-center gap-4">
                         <div class="w-12 h-12 bg-lapas-accent rounded-lg flex items-center justify-center">
-                            <!-- ICON WBP -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 1.5c-2.7 0-8 1.35-8 4v1h16v-1c0-2.65-5.3-4-8-4Zm7-8.5a3 3 0 1 1-3 3" />
                             </svg>
@@ -198,6 +197,7 @@
         </div>
 
         {{-- Kepala Lapas --}}
+        @if($kepalaLapas)
         <div class="max-w-5xl mx-auto mb-16">
             <div class="bg-gradient-to-br from-lapas-navy to-lapas-blue rounded-2xl shadow-2xl overflow-hidden">
                 <div class="pattern-overlay p-10 md:p-12">
@@ -205,9 +205,13 @@
                         <div class="md:col-span-1 flex justify-center">
                             <div class="relative">
                                 <div class="w-48 h-48 rounded-2xl bg-white/10 backdrop-blur-sm border-4 border-white/30 overflow-hidden shadow-2xl">
+                                    @if($kepalaLapas->foto)
+                                    <img src="{{ $kepalaLapas->foto_url }}" alt="{{ $kepalaLapas->nama }}" class="w-full h-full object-cover">
+                                    @else
                                     <div class="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
                                         <i class="fas fa-user text-6xl text-gray-500"></i>
                                     </div>
+                                    @endif
                                 </div>
                                 <div class="absolute -bottom-3 -right-3 bg-lapas-gold text-white w-16 h-16 rounded-xl flex items-center justify-center shadow-xl">
                                     <i class="fas fa-star text-2xl"></i>
@@ -218,61 +222,68 @@
                             <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
                                 <span class="text-sm font-semibold">Kepala Lembaga Pemasyarakatan</span>
                             </div>
-                            <h3 class="text-3xl md:text-4xl font-bold mb-2">[Nama Kepala Lapas]</h3>
-                            <p class="text-xl text-gray-200 mb-4">[Pangkat/Golongan]</p>
+                            <h3 class="text-3xl md:text-4xl font-bold mb-2">{{ $kepalaLapas->nama }}</h3>
+                            <p class="text-xl text-gray-200 mb-4">{{ $kepalaLapas->pangkat_golongan }}</p>
                             <p class="text-lg text-gray-300 mb-6 leading-relaxed">
-                                NIP: [Nomor Induk Pegawai]
+                                NIP: {{ $kepalaLapas->nip }}
                             </p>
+                            @if($kepalaLapas->pendidikan || $kepalaLapas->tahun_menjabat)
                             <div class="flex flex-wrap gap-3">
+                                @if($kepalaLapas->pendidikan)
                                 <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
                                     <i class="fas fa-graduation-cap mr-2"></i>
-                                    <span class="text-sm">[Pendidikan Terakhir]</span>
+                                    <span class="text-sm">{{ $kepalaLapas->pendidikan }}</span>
                                 </div>
+                                @endif
+                                @if($kepalaLapas->tahun_menjabat)
                                 <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
                                     <i class="fas fa-briefcase mr-2"></i>
-                                    <span class="text-sm">[Tahun Menjabat]</span>
+                                    <span class="text-sm">{{ $kepalaLapas->tahun_menjabat }}</span>
                                 </div>
+                                @endif
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endif
 
         {{-- Pejabat Struktural --}}
+        @if($pejabatStruktural->count() > 0)
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            @php
-            $pejabat = [
-                ['nama' => '[Nama Kasubag TU]', 'jabatan' => 'Kepala Sub Bagian Tata Usaha', 'color' => 'from-lapas-navy to-lapas-accent'],
-                ['nama' => '[Nama Kasi Binadik]', 'jabatan' => 'Kepala Seksi Bimbingan Narapidana & Anak Didik', 'color' => 'from-lapas-accent to-blue-600'],
-                ['nama' => '[Nama Kasi Kegiatan]', 'jabatan' => 'Kepala Seksi Kegiatan Kerja', 'color' => 'from-green-600 to-green-700'],
-                ['nama' => '[Nama Kasi Adm Kamtib]', 'jabatan' => 'Kepala Seksi Administrasi Keamanan & Ketertiban', 'color' => 'from-red-600 to-red-700'],
-                ['nama' => '[Nama Kasi PBS]', 'jabatan' => 'Kepala Seksi Pengelolaan Benda Sitaan & Barang Rampasan', 'color' => 'from-yellow-600 to-yellow-700'],
-                ['nama' => '[Nama Kasi Regbimsyar]', 'jabatan' => 'Kepala Seksi Registrasi & Bimbingan Kemasyarakatan', 'color' => 'from-purple-600 to-purple-700'],
-            ];
-            @endphp
-
-            @foreach($pejabat as $p)
+            @foreach($pejabatStruktural as $p)
             <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition border border-gray-200 overflow-hidden group">
-                <div class="h-2 bg-gradient-to-r {{ $p['color'] }}"></div>
+                <div class="h-2 bg-gradient-to-r {{ $p->warna_gradient }}"></div>
                 <div class="p-8">
                     <div class="w-32 h-32 mx-auto mb-6 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform overflow-hidden">
+                        @if($p->foto)
+                        <img src="{{ $p->foto_url }}" alt="{{ $p->nama }}" class="w-full h-full object-cover">
+                        @else
                         <i class="fas fa-user text-5xl text-gray-500"></i>
+                        @endif
                     </div>
                     <div class="text-center">
-                        <h4 class="text-xl font-bold text-lapas-navy mb-1">{{ $p['nama'] }}</h4>
-                        <p class="text-sm text-gray-500 mb-2">[Pangkat/Golongan]</p>
+                        <h4 class="text-xl font-bold text-lapas-navy mb-1">{{ $p->nama }}</h4>
+                        <p class="text-sm text-gray-500 mb-2">{{ $p->pangkat_golongan }}</p>
                         <div class="inline-block bg-lapas-accent/10 text-lapas-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                            {{ $p['jabatan'] }}
+                            {{ $p->jabatan }}
                         </div>
-                        <p class="text-xs text-gray-600">NIP: [Nomor Induk Pegawai]</p>
+                        <p class="text-xs text-gray-600">NIP: {{ $p->nip }}</p>
                     </div>
                 </div>
             </div>
             @endforeach
-
         </div>
+        @else
+        <div class="text-center py-12">
+            <div class="inline-block bg-gray-100 border border-gray-300 rounded-xl p-8">
+                <i class="fas fa-users text-gray-400 text-5xl mb-4"></i>
+                <p class="text-gray-600">Data pejabat struktural akan segera ditampilkan</p>
+            </div>
+        </div>
+        @endif
 
         {{-- Note --}}
         <div class="mt-12 text-center">

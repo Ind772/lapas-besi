@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('title', 'Beranda - Lapas Kelas IIA Besi Nusakambangan')
 
@@ -15,14 +15,8 @@
 @section('content')
 
 {{-- HERO SECTION --}}
-@php
-    $bgImage = $sliders->first() ? $sliders->first()->gambar : 'https://assets-a1.kompasiana.com/items/album/2022/04/23/whatsapp-image-2022-04-23-at-09-28-38-62637d15bb44865f7f415972.jpeg';
-    $judul = $sliders->first() ? $sliders->first()->judul : 'Lembaga Pemasyarakatan Kelas IIA Besi';
-    $deskripsi = $sliders->first() ? $sliders->first()->deskripsi : 'Nusakambangan, Jawa Tengah';
-@endphp
-
 <header id="beranda" class="hero-bg relative h-screen flex items-center justify-center text-center px-6"
-    style="background-image: linear-gradient(135deg, rgba(15, 39, 68, 0.92), rgba(0, 0, 0, 0.85)), url('{{ $bgImage }}')">
+    style="background-image: linear-gradient(135deg, rgba(15, 39, 68, 0.92), rgba(0, 0, 0, 0.85)), url('https://assets-a1.kompasiana.com/items/album/2022/04/23/whatsapp-image-2022-04-23-at-09-28-38-62637d15bb44865f7f415972.jpeg')">
     <div class="pattern-overlay absolute inset-0"></div>
     <div class="relative z-10 max-w-5xl text-white">
         {{-- Badge --}}
@@ -31,8 +25,8 @@
             <span class="text-sm font-semibold">Portal Resmi</span>
         </div>
 
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">{{ $judul }}</h1>
-        <p class="text-xl md:text-2xl mb-4 text-gray-200 font-light">{{ $deskripsi }}</p>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">Lembaga Pemasyarakatan Kelas IIA Besi</h1>
+        <p class="text-xl md:text-2xl mb-4 text-gray-200 font-light">Nusakambangan, Jawa Tengah</p>
         <p class="text-lg mb-8 text-lapas-gold font-medium italic">
             "Griya Winaya Janma Wimarga Laksa Dharmmesti"
         </p>
@@ -82,7 +76,7 @@
             <div>
                 <h3 class="text-3xl font-bold text-lapas-navy mb-4">Lembaga Pemasyarakatan Kelas IIA Besi</h3>
                 <p class="text-gray-600 mb-4 leading-relaxed">
-                    Lembaga Pemasyarakatan Kelas IIA Besi merupakan salah satu unit pelaksana teknis di lingkungan Kementerian Imigrasi dan Pemasyarakatan yang berlokasi di Pulau Nusakambangan, Cilacap, Jawa Tengah.
+                    Lembaga Pemasyarakatan Kelas IIA Besi merupakan salah satu unit pelaksana teknis di lingkungan Kementerian Hukum dan HAM yang berlokasi di Pulau Nusakambangan, Cilacap, Jawa Tengah.
                 </p>
                 <p class="text-gray-600 mb-6 leading-relaxed">
                     Sebagai lembaga pemasyarakatan dengan tingkat keamanan maksimum, kami berkomitmen untuk melaksanakan pembinaan narapidana dengan mengedepankan prinsip-prinsip hak asasi manusia dan keadilan.
