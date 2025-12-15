@@ -27,7 +27,7 @@ class LandingController extends Controller
     /**
      * Main scraping function
      */
-    private function scrapeKompasiana()
+    public function scrapeKompasiana()
     {
         $url = 'https://www.kompasiana.com/rezanaagustyan8132';
         

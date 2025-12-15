@@ -1,186 +1,193 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin') - Lapas Kelas IIA Besi</title>
+
+    <title>@yield('title', 'Admin Panel') - Lapas Besi</title>
+
+    {{-- 1. BOOTSTRAP 5 CSS (CDN) --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    {{-- Tailwind CSS --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    {{-- Font Awesome --}}
+    {{-- 2. FONT AWESOME (CDN) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    {{-- Custom Tailwind Config --}}
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'lapas-navy': '#0F2744',
-                        'lapas-blue': '#1E3A5F',
-                        'lapas-slate': '#2C4A6B',
-                        'lapas-accent': '#3B82F6',
-                        'lapas-gold': '#D4AF37'
-                    }
-                }
-            }
-        }
-    </script>
-    
+
+    {{-- 3. CUSTOM CSS UNTUK LAYOUT ADMIN --}}
     <style>
-        .sidebar-link.active {
-            background: linear-gradient(135deg, #0F2744, #1E3A5F);
+        body {
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar Styling */
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            transition: margin .25s ease-out;
+            background-color: #0F2744; /* Warna Navy Lapas */
             color: white;
         }
-        
-        .sidebar-link:not(.active):hover {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3B82F6;
+
+        #sidebar-wrapper .sidebar-heading {
+            padding: 1.5rem 1.25rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #sidebar-wrapper .list-group {
+            width: 15rem;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 1rem 1.25rem;
+            background-color: transparent; /* Transparan agar ikut warna sidebar */
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .list-group-item.active {
+            background-color: #1E3A5F; /* Biru lebih terang */
+            color: #fff;
+            font-weight: bold;
+            border-left: 4px solid #3B82F6;
+        }
+
+        /* Wrapper Toggled State */
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+
+        /* Page Content */
+        #page-content-wrapper {
+            width: 100%;
+        }
+
+        /* Navbar Custom */
+        .navbar-custom {
+            background-color: #fff;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+        }
+
+        /* Responsive Fix */
+        @media (min-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
         }
     </style>
-    
     @stack('styles')
 </head>
-<body class="bg-gray-100">
-    
-    {{-- Sidebar --}}
-    <aside class="fixed inset-y-0 left-0 w-64 bg-white shadow-xl z-40 transform transition-transform duration-300 ease-in-out" id="sidebar">
-        <div class="flex flex-col h-full">
-            
-            {{-- Logo --}}
-            <div class="flex items-center gap-3 p-6 border-b border-gray-200">
-                <div class="w-12 h-12 flex items-center justify-center">
-                    <img src="{{ asset('images/logo-besi.png') }}" alt="Logo Besi" class="w-full h-full object-contain">
-                </div>
-                <div>
-                    <h2 class="font-bold text-lapas-navy text-lg">Admin Panel</h2>
-                    <p class="text-xs text-gray-500">Lapas Besi</p>
-                </div>
+<body>
+
+    <div class="d-flex" id="wrapper">
+        
+        {{-- SIDEBAR --}}
+        <div class="" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center">
+                <i class="fas fa-building me-2"></i> ADMIN LAPAS
             </div>
-            
-            {{-- User Info --}}
-            <div class="p-6 border-b border-gray-200 bg-gradient-to-br from-lapas-navy to-lapas-blue">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-lg">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                    </div>
-                    <div class="text-white">
-                        <p class="font-semibold">{{ auth()->user()->name }}</p>
-                        <p class="text-xs opacity-80">{{ ucfirst(auth()->user()->role) }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            {{-- Navigation --}}
-            <nav class="flex-1 p-4 overflow-y-auto">
-                <div class="space-y-1">
-                    <a href="{{ route('admin.pejabat.index') }}" 
-                       class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('admin.pejabat.*') ? 'active' : '' }}">
-                        <i class="fas fa-users w-5"></i>
-                        <span class="font-medium">Kelola Pejabat</span>
-                    </a>
-                    
-                    {{-- Link Menu Lainnya --}}
-                    <a href="#" 
-                       class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition">
-                        <i class="fas fa-newspaper w-5"></i>
-                        <span class="font-medium">Kelola Berita</span>
-                    </a>
-                    
-                    <a href="#" 
-                       class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition">
-                        <i class="fas fa-cog w-5"></i>
-                        <span class="font-medium">Pengaturan</span>
-                    </a>
-                </div>
-            </nav>
-            
-            {{-- Footer Sidebar --}}
-            <div class="p-4 border-t border-gray-200">
-                <a href="{{ route('landing') }}" 
-                   class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition">
-                    <i class="fas fa-globe"></i>
-                    <span>Lihat Website</span>
+            <div class="list-group list-group-flush mt-3">
+                <a href="{{ route('admin.pejabat.index') }}" 
+                   class="list-group-item list-group-item-action {{ request()->routeIs('admin.pejabat.*') ? 'active' : '' }}">
+                    <i class="fas fa-user-tie me-2" style="width: 20px;"></i> Kelola Pejabat
+                </a>
+                
+                {{-- Menu Tambahan (Contoh) --}}
+                <a href="{{ route('admin.berita.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                    <i class="fas fa-newspaper me-2" style="width: 20px;"></i> Kelola Berita
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="fas fa-cogs me-2" style="width: 20px;"></i> Pengaturan
+                </a>
+                
+                <a href="{{ url('/') }}" target="_blank" class="list-group-item list-group-item-action mt-5 border-top border-secondary">
+                    <i class="fas fa-external-link-alt me-2"></i> Lihat Website
                 </a>
             </div>
-            
         </div>
-    </aside>
-    
-    {{-- Main Content --}}
-    <div class="ml-64">
-        
-        {{-- Top Bar --}}
-        <header class="bg-white shadow-sm sticky top-0 z-30">
-            <div class="flex items-center justify-between px-6 py-4">
-                
-                {{-- Mobile Menu Button --}}
-                <button id="sidebarToggle" class="lg:hidden text-gray-600 hover:text-gray-900">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-                
-                <div class="flex-1"></div>
-                
-                {{-- User Menu --}}
-                <div class="flex items-center gap-4">
-                    <span class="hidden md:inline text-sm text-gray-600">
-                        Halo, <strong class="text-gray-800">{{ auth()->user()->name }}</strong>
-                    </span>
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" 
-                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition inline-flex items-center gap-2">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="hidden md:inline">Logout</span>
-                        </button>
-                    </form>
+
+        {{-- PAGE CONTENT WRAPPER --}}
+        <div id="page-content-wrapper">
+
+            {{-- TOP NAVBAR --}}
+            <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-3 px-4">
+                <div class="d-flex align-items-center w-100 justify-content-between">
+                    
+                    {{-- Tombol Toggle Sidebar --}}
+                    <button class="btn btn-outline-secondary" id="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    {{-- User Dropdown --}}
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle fa-lg me-1 text-primary"></i>
+                            {{ auth()->user()->name ?? 'Administrator' }}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                
+            </nav>
+
+            {{-- MAIN CONTENT --}}
+            <div class="container-fluid py-4">
+                @yield('content')
             </div>
-        </header>
-        
-        {{-- Content --}}
-        <main class="min-h-screen">
-            @yield('content')
-        </main>
-        
-        {{-- Footer --}}
-        <footer class="bg-white border-t border-gray-200 py-6">
-            <div class="container mx-auto px-6 text-center text-gray-600 text-sm">
-                <p>&copy; {{ date('Y') }} Lapas Kelas IIA Besi Nusakambangan. All rights reserved.</p>
-            </div>
-        </footer>
-        
+
+            {{-- FOOTER --}}
+            <footer class="bg-white text-center py-3 border-top mt-auto">
+                <small class="text-muted">&copy; {{ date('Y') }} Lapas Kelas IIA Besi Nusakambangan</small>
+            </footer>
+
+        </div>
     </div>
-    
-    {{-- Mobile Sidebar Overlay --}}
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden lg:hidden"></div>
-    
-    {{-- Scripts --}}
+
+    {{-- 4. BOOTSTRAP JS BUNDLE (Termasuk Popper) --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- Script Toggle Sidebar --}}
     <script>
-        // Sidebar Toggle for Mobile
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-        
-        sidebarToggle?.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-            sidebarOverlay.classList.toggle('hidden');
-        });
-        
-        sidebarOverlay?.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-            sidebarOverlay.classList.add('hidden');
-        });
-        
-        // Auto-dismiss alerts
-        setTimeout(() => {
-            document.querySelectorAll('[class*="alert"]').forEach(el => {
-                el.style.transition = 'opacity 0.5s';
-                el.style.opacity = '0';
-                setTimeout(() => el.remove(), 500);
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        // Auto hide alert
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
             });
         }, 5000);
     </script>

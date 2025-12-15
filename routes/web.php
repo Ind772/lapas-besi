@@ -72,13 +72,25 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     
-    // Dashboard Admin (redirect to pejabat index)
+    // Dashboard Admin
     Route::get('/dashboard', function() {
         return redirect()->route('admin.pejabat.index');
     })->name('dashboard');
     
     // CRUD Pejabat
     Route::resource('pejabat', AdminPejabatController::class);
+
+    // --- Rute Baru: Kelola Berita (Scraping) ---
+    Route::get('/berita', function() {
+        // Logika scraping dipindah ke sini
+        // Kita clear cache dulu agar admin selalu dapat data terbaru saat klik menu ini
+        \Illuminate\Support\Facades\Cache::forget('kompasiana_berita_v6');
+        
+        $controller = new \App\Http\Controllers\LandingController();
+        $berita = $controller->scrapeKompasiana();
+        
+        return view('debug-scraping', compact('berita'));
+    })->name('berita.index'); // Nama route: admin.berita.index
 });
 
 /*

@@ -28,14 +28,15 @@
     </div>
     @endif
 
-    {{-- Kepala Lapas --}}
+    {{-- 1. BAGIAN KEPALA LAPAS --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 bg-primary text-white">
             <h6 class="m-0 font-weight-bold">Kepala Lembaga Pemasyarakatan</h6>
         </div>
         <div class="card-body">
             @php
-                $kepala = $pejabat->where('tipe', 'kepala')->first();
+                // PERBAIKAN: Menggunakan 'tipe_jabatan' sesuai database, bukan 'tipe'
+                $kepala = $pejabat->where('tipe_jabatan', 'kepala')->first();
             @endphp
             
             @if($kepala)
@@ -43,7 +44,7 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
-                            <th width="100">Foto</th>
+                            <th width="120">Foto</th>
                             <th>Nama</th>
                             <th>Pangkat/Golongan</th>
                             <th>NIP</th>
@@ -55,35 +56,36 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 @if($kepala->foto)
-                                <img src="{{ $kepala->foto_url }}" alt="{{ $kepala->nama }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                                {{-- PERBAIKAN: Menggunakan asset storage --}}
+                                <img src="{{ asset('storage/' . $kepala->foto) }}" alt="Foto Kepala" class="img-thumbnail rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
                                 @else
-                                <div class="bg-secondary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                     <i class="fas fa-user text-white fa-2x"></i>
                                 </div>
                                 @endif
                             </td>
-                            <td>{{ $kepala->nama }}</td>
-                            <td>{{ $kepala->pangkat_golongan }}</td>
-                            <td>{{ $kepala->nip }}</td>
-                            <td>{{ $kepala->pendidikan ?? '-' }}</td>
-                            <td>{{ $kepala->tahun_menjabat ?? '-' }}</td>
-                            <td>
+                            <td class="align-middle fw-bold">{{ $kepala->nama }}</td>
+                            <td class="align-middle">{{ $kepala->pangkat_golongan }}</td>
+                            <td class="align-middle">{{ $kepala->nip }}</td>
+                            <td class="align-middle">{{ $kepala->pendidikan ?? '-' }}</td>
+                            <td class="align-middle">{{ $kepala->tahun_menjabat ?? '-' }}</td>
+                            <td class="align-middle">
                                 @if($kepala->is_active)
                                 <span class="badge bg-success">Aktif</span>
                                 @else
-                                <span class="badge bg-secondary">Tidak Aktif</span>
+                                <span class="badge bg-secondary">Non-Aktif</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('admin.pejabat.edit', $kepala) }}" class="btn btn-sm btn-warning">
+                            <td class="align-middle text-center">
+                                <a href="{{ route('admin.pejabat.edit', $kepala->id) }}" class="btn btn-sm btn-warning mb-1">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.pejabat.destroy', $kepala) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <form action="{{ route('admin.pejabat.destroy', $kepala->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data Kepala Lapas ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
+                                    <button type="submit" class="btn btn-sm btn-danger mb-1">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -93,68 +95,72 @@
                 </table>
             </div>
             @else
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i> Belum ada data Kepala Lapas. 
-                <a href="{{ route('admin.pejabat.create') }}">Tambahkan sekarang</a>
+            <div class="alert alert-warning border-start border-warning border-4">
+                <i class="fas fa-exclamation-triangle me-2"></i> 
+                <strong>Data Kosong!</strong> Belum ada data Kepala Lapas. 
+                <a href="{{ route('admin.pejabat.create') }}" class="fw-bold text-dark text-decoration-underline">Tambahkan sekarang</a>
             </div>
             @endif
         </div>
     </div>
 
-    {{-- Pejabat Struktural --}}
+    {{-- 2. BAGIAN PEJABAT STRUKTURAL --}}
     <div class="card shadow">
         <div class="card-header py-3 bg-success text-white">
             <h6 class="m-0 font-weight-bold">Pejabat Struktural</h6>
         </div>
         <div class="card-body">
             @php
-                $struktural = $pejabat->where('tipe', 'struktural');
+                // PERBAIKAN: Menggunakan 'tipe_jabatan' sesuai database
+                $struktural = $pejabat->where('tipe_jabatan', 'struktural')->sortBy('urutan');
             @endphp
             
             @if($struktural->count() > 0)
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th width="50">#</th>
-                            <th width="80">Foto</th>
-                            <th>Nama</th>
+                            <th width="50" class="text-center">No</th>
+                            <th width="100" class="text-center">Foto</th>
+                            <th>Nama & NIP</th>
                             <th>Jabatan</th>
-                            <th>Pangkat/Golongan</th>
-                            <th>NIP</th>
-                            <th>Status</th>
-                            <th width="150">Aksi</th>
+                            <th>Pangkat</th>
+                            <th class="text-center">Status</th>
+                            <th width="150" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($struktural as $index => $p)
+                        {{-- Loop manual untuk penomoran karena collection hasil filter --}}
+                        @foreach($struktural as $p)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">
                                 @if($p->foto)
-                                <img src="{{ $p->foto_url }}" alt="{{ $p->nama }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $p->foto) }}" alt="Foto" class="img-thumbnail rounded" style="width: 60px; height: 60px; object-fit: cover;">
                                 @else
-                                <div class="bg-secondary d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                                <div class="bg-secondary d-inline-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
                                     <i class="fas fa-user text-white"></i>
                                 </div>
                                 @endif
                             </td>
-                            <td>{{ $p->nama }}</td>
-                            <td><small>{{ $p->jabatan }}</small></td>
-                            <td>{{ $p->pangkat_golongan }}</td>
-                            <td>{{ $p->nip }}</td>
                             <td>
+                                <div class="fw-bold">{{ $p->nama }}</div>
+                                <small class="text-muted">NIP: {{ $p->nip }}</small>
+                            </td>
+                            <td>{{ $p->jabatan }}</td>
+                            <td>{{ $p->pangkat_golongan }}</td>
+                            <td class="text-center">
                                 @if($p->is_active)
                                 <span class="badge bg-success">Aktif</span>
                                 @else
-                                <span class="badge bg-secondary">Tidak Aktif</span>
+                                <span class="badge bg-secondary">Non-Aktif</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('admin.pejabat.edit', $p) }}" class="btn btn-sm btn-warning">
+                            <td class="text-center">
+                                <a href="{{ route('admin.pejabat.edit', $p->id) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.pejabat.destroy', $p) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <form action="{{ route('admin.pejabat.destroy', $p->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus pejabat ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">
@@ -168,9 +174,9 @@
                 </table>
             </div>
             @else
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i> Belum ada data pejabat struktural. 
-                <a href="{{ route('admin.pejabat.create') }}">Tambahkan sekarang</a>
+            <div class="alert alert-info border-start border-info border-4">
+                <i class="fas fa-info-circle me-2"></i> Belum ada data pejabat struktural. 
+                <a href="{{ route('admin.pejabat.create') }}" class="fw-bold text-dark text-decoration-underline">Tambahkan sekarang</a>
             </div>
             @endif
         </div>
