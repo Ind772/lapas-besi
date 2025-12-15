@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ProfilController; // Controller Halaman Profil Publik (Lembaga)
+use App\Http\Controllers\ProfileController; // Controller Edit Akun User (Bawaan Breeze/Laravel)
 use App\Http\Controllers\Admin\AdminPejabatController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -16,7 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 // Route utama
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 
-// Profil Page
+// Profil Page (Halaman Publik / Tentang Kami)
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
 
 // Route untuk clear cache berita
@@ -40,20 +41,27 @@ Route::post('/logout', [LoginController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard Routes (Authenticated Users)
+| Dashboard & User Profile Routes (Authenticated Users)
 |--------------------------------------------------------------------------
 */
 
 Route::middleware(['auth'])->group(function () {
+    
+    // Dashboard Logic
     Route::get('/dashboard', function() {
         // Redirect based on user role
         if (auth()->user()->role === 'admin') {
             return redirect()->route('admin.pejabat.index');
         }
-        
         // Regular users redirect to home
         return redirect()->route('landing');
     })->name('dashboard');
+
+    // --- TAMBAHAN: User Account Settings (ProfileController) ---
+    // Menggunakan URL /account-profile agar tidak bentrok dengan /profil publik
+    Route::get('/account-profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/account-profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/account-profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 /*
@@ -71,10 +79,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // CRUD Pejabat
     Route::resource('pejabat', AdminPejabatController::class);
-    
-    // Optional: Toggle active status pejabat (jika ingin tambah fitur ini)
-    // Route::patch('pejabat/{pejabat}/toggle-active', [AdminPejabatController::class, 'toggleActive'])
-    //     ->name('pejabat.toggle-active');
 });
 
 /*
@@ -84,28 +88,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 */
 
 if (app()->environment('local')) {
+    Route::get('/debug-scraping', [LandingController::class, 'debugScraping'])->name('debug.scraping');
     
-    // Debug scraping - return JSON
-    Route::get('/debug-scraping', [LandingController::class, 'debugScraping'])
-        ->name('debug.scraping');
-    
-    // Test scraping dengan view
     Route::get('/test-scraping', function() {
         Cache::forget('kompasiana_berita_v6');
-        
         $controller = new LandingController();
-        
         $reflection = new \ReflectionClass($controller);
         $method = $reflection->getMethod('scrapeKompasiana');
         $method->setAccessible(true);
-        
         $berita = $method->invoke($controller);
-        
         return view('debug-scraping', compact('berita'));
     })->name('test.scraping');
-    
-    // Route untuk test email, test database, dll (optional)
-    // Route::get('/test-db', function() {
-    //     return \App\Models\User::count();
-    // });
 }

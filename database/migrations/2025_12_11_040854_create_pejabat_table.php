@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('tahun_menjabat')->nullable();
             $table->string('foto')->nullable();
             $table->integer('urutan')->default(0);
-            $table->string('warna_gradient')->default('from-lapas-navy to-lapas-blue');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             

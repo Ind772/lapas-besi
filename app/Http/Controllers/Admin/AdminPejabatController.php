@@ -42,7 +42,6 @@ class AdminPejabatController extends Controller
             'pendidikan' => 'nullable|string|max:255',
             'tahun_menjabat' => 'nullable|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'warna_gradient' => 'required|string',
             'tipe_jabatan' => 'required|in:kepala,struktural',
             'urutan' => 'nullable|integer',
         ]);
@@ -90,7 +89,6 @@ class AdminPejabatController extends Controller
             'pendidikan' => 'nullable|string|max:255',
             'tahun_menjabat' => 'nullable|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'warna_gradient' => 'required|string',
             'tipe_jabatan' => 'required|in:kepala,struktural',
             'urutan' => 'nullable|integer',
         ]);

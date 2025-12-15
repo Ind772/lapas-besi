@@ -1,3 +1,12 @@
+{{-- CSS KHUSUS UNTUK SMOOTH SCROLL --}}
+@push('styles')
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+@endpush
+
 {{-- TOP BAR --}}
 <div class="bg-black text-gray-300 text-xs py-2">
     <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2">
@@ -30,40 +39,37 @@
 
             {{-- Navigation Menu --}}
             <div class="hidden md:flex space-x-1 relative" id="navbarMenu">
-                <a href="{{ route('landing') }}" 
-                data-nav="beranda"
-                class="nav-link px-4 py-2 rounded transition {{ request()->routeIs('landing') && !request()->has('_fragment') ? 'text-lapas-navy font-semibold' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
+                {{-- Perhatikan penambahan ID atau data-target untuk memudahkan JS --}}
+                <a href="{{ route('landing') }}#beranda" 
+                   data-target="beranda"
+                   class="nav-link px-4 py-2 rounded transition text-gray-600 hover:text-lapas-navy hover:bg-gray-100">
                     Beranda
                 </a>
                 
-                {{-- Link Profil: Jika di landing scroll ke section, jika tidak redirect ke halaman profil --}}
+                {{-- Logika Profil: Tetap aktif jika di halaman profil --}}
                 @if(request()->routeIs('landing'))
-                    <a href="#profil" 
-                    data-nav="profil"
-                    class="nav-link px-4 py-2 rounded transition text-gray-600 hover:text-lapas-navy hover:bg-gray-100">
+                    <a href="#profil" data-target="profil" class="nav-link px-4 py-2 rounded transition text-gray-600 hover:text-lapas-navy hover:bg-gray-100">
                         Profil
                     </a>
                 @else
-                    <a href="{{ route('profil') }}" 
-                    data-nav="profil"
-                    class="nav-link px-4 py-2 rounded transition {{ request()->routeIs('profil') ? 'text-lapas-navy font-semibold' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
+                    <a href="{{ route('profil') }}" class="nav-link px-4 py-2 rounded transition {{ request()->routeIs('profil') ? 'text-lapas-navy font-semibold' : 'text-gray-600 hover:text-lapas-navy hover:bg-gray-100' }}">
                         Profil
                     </a>
                 @endif
                 
                 <a href="{{ route('landing') }}#layanan" 
-                data-nav="layanan"
-                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                   data-target="layanan"
+                   class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Layanan
                 </a>
                 <a href="{{ route('landing') }}#berita" 
-                data-nav="berita"
-                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                   data-target="berita"
+                   class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Berita
                 </a>
                 <a href="{{ route('landing') }}#kontak" 
-                data-nav="kontak"
-                class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
+                   data-target="kontak"
+                   class="nav-link px-4 py-2 text-gray-600 hover:text-lapas-navy hover:bg-gray-100 rounded transition">
                     Kontak
                 </a>
                 
@@ -79,26 +85,11 @@
 
         {{-- Mobile Menu --}}
         <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-2">
-            <a href="{{ route('landing') }}" 
-               class="block px-4 py-2 rounded {{ request()->routeIs('landing') ? 'bg-lapas-navy text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-                Beranda
-            </a>
-            <a href="{{ route('profil') }}" 
-               class="block px-4 py-2 rounded {{ request()->routeIs('profil') ? 'bg-lapas-navy text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-                Profil
-            </a>
-            <a href="{{ route('landing') }}#layanan" 
-               class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-                Layanan
-            </a>
-            <a href="{{ route('landing') }}#berita" 
-               class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-                Berita
-            </a>
-            <a href="{{ route('landing') }}#kontak" 
-               class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-                Kontak
-            </a>
+            <a href="{{ route('landing') }}#beranda" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Beranda</a>
+            <a href="{{ route('landing') }}#profil" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Profil</a>
+            <a href="{{ route('landing') }}#layanan" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Layanan</a>
+            <a href="{{ route('landing') }}#berita" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Berita</a>
+            <a href="{{ route('landing') }}#kontak" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Kontak</a>
         </div>
     </div>
 </nav>
@@ -106,7 +97,56 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile Menu Toggle
+        
+        // ============================================================
+        // 1. LOGIKA KLIK MENU (AGAR SMOOTH & OFFSET PAS)
+        // ============================================================
+        // Cari semua link yang berawalan #
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Matikan fungsi lompat bawaan browser (yang kasar)
+                e.preventDefault(); 
+                
+                // Ambil ID target dari href
+                const href = this.getAttribute('href');
+                // Pastikan ada tanda pagar
+                if (!href || !href.includes('#')) return;
+                
+                // Ambil nama ID (misal: "beranda" dari "#beranda")
+                const targetId = href.split('#')[1];
+                if (!targetId) return;
+
+                // --- KHUSUS BERANDA: SCROLL KE PALING ATAS (PIXEL 0) ---
+                if (targetId === 'beranda') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth" // <--- Ini yang bikin halus
+                    });
+                    // Update URL tanpa reload
+                    history.pushState(null, null, '#' + targetId);
+                    return; 
+                }
+
+                // --- UNTUK MENU LAIN (Layanan, Berita, Kontak) ---
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const navbarHeight = 100; // Tinggi navbar + jarak aman
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth" // <--- Ini yang bikin halus
+                    });
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+
+        // ============================================================
+        // 2. MOBILE MENU
+        // ============================================================
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         
@@ -116,48 +156,83 @@
             });
         }
 
-        // Animated Underline for Desktop Navigation
+        // ============================================================
+        // 3. LOGIKA GARIS BAWAH & SCROLLSPY (ACTIVE ON SCROLL)
+        // ============================================================
         const navLinks = document.querySelectorAll('.nav-link');
         const underline = document.getElementById('navUnderline');
-        
-        if (underline && navLinks.length > 0) {
-            // Function untuk move underline (dibuat global agar bisa diakses dari app.blade.php)
-            window.moveUnderline = function(link) {
-                if (!link) return;
-                
-                const linkRect = link.getBoundingClientRect();
-                const navRect = link.parentElement.getBoundingClientRect();
-                
-                underline.style.width = linkRect.width + 'px';
-                underline.style.left = (linkRect.left - navRect.left) + 'px';
-                underline.style.opacity = '1';
-            };
+        const navMenu = document.getElementById('navbarMenu');
+
+        window.moveUnderline = function(link) {
+            if (!link || !underline) return;
+            const linkRect = link.getBoundingClientRect();
+            const navRect = link.parentElement.getBoundingClientRect();
+            underline.style.width = linkRect.width + 'px';
+            underline.style.left = (linkRect.left - navRect.left) + 'px';
+            underline.style.opacity = '1';
+        };
+
+        const isLandingPage = document.getElementById('beranda');
+
+        if (isLandingPage && navLinks.length > 0 && underline) {
+            const sections = document.querySelectorAll('header[id], section[id], footer[id]');
             
-            // Set initial position based on active link
-            const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
-            window.moveUnderline(activeLink);
-            
-            // Add hover effect
-            navLinks.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    window.moveUnderline(this);
+            function onScroll() {
+                let currentSection = '';
+                const scrollY = window.scrollY + 120; 
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
                 });
-            });
-            
-            // Reset to active link when mouse leaves nav
-            const navMenu = document.getElementById('navbarMenu');
-            if (navMenu) {
-                navMenu.addEventListener('mouseleave', function() {
-                    const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
-                    window.moveUnderline(activeLink);
+
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                    currentSection = 'kontak';
+                }
+
+                if (window.scrollY < 100) {
+                    currentSection = 'beranda';
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('font-semibold', 'text-lapas-navy');
+                    link.classList.add('text-gray-600');
+                    
+                    const dataTarget = link.getAttribute('data-target');
+                    // Ambil ID dari href untuk dicocokkan
+                    const hrefTarget = link.getAttribute('href').includes('#') ? link.getAttribute('href').split('#')[1] : '';
+
+                    if (dataTarget === currentSection || hrefTarget === currentSection) {
+                        link.classList.remove('text-gray-600');
+                        link.classList.add('font-semibold', 'text-lapas-navy');
+                        window.moveUnderline(link);
+                    }
                 });
             }
-            
-            // Update underline on window resize
-            window.addEventListener('resize', function() {
-                const activeLink = document.querySelector('.nav-link.font-semibold') || navLinks[0];
-                window.moveUnderline(activeLink);
+
+            window.addEventListener('scroll', onScroll);
+            setTimeout(onScroll, 100);
+        } 
+        else {
+            const activeLink = document.querySelector('.nav-link.font-semibold');
+            if(activeLink) setTimeout(() => window.moveUnderline(activeLink), 100);
+        }
+
+        if (underline) {
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() { window.moveUnderline(this); });
             });
+            if (navMenu) {
+                navMenu.addEventListener('mouseleave', function() {
+                    const activeLink = document.querySelector('.nav-link.font-semibold');
+                    if (activeLink) window.moveUnderline(activeLink);
+                    else underline.style.opacity = '0';
+                });
+            }
         }
     });
 </script>
