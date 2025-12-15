@@ -112,10 +112,7 @@
                 <a href="{{ route('admin.berita.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                     <i class="fas fa-newspaper me-2" style="width: 20px;"></i> Kelola Berita
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-cogs me-2" style="width: 20px;"></i> Pengaturan
-                </a>
-                
+
                 <a href="{{ url('/') }}" target="_blank" class="list-group-item list-group-item-action mt-5 border-top border-secondary">
                     <i class="fas fa-external-link-alt me-2"></i> Lihat Website
                 </a>
@@ -142,8 +139,6 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
-                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf

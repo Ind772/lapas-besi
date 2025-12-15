@@ -61,6 +61,14 @@
             <input type="number" name="urutan" class="form-control" value="{{ $pejabat->urutan }}">
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Status Pejabat</label>
+            <select name="is_active" class="form-control">
+                <option value="1" {{ $pejabat->is_active == 1 ? 'selected' : '' }}>Aktif</option>
+                <option value="0" {{ $pejabat->is_active == 0 ? 'selected' : '' }}>Tidak Aktif (Sembunyikan)</option>
+            </select>
+            <small class="text-muted">Jika dipilih "Tidak Aktif", pejabat ini tidak akan muncul di halaman Profil Publik.</small>
+        </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>

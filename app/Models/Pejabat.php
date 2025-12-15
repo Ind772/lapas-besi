@@ -16,13 +16,12 @@ class Pejabat extends Model
         'nip',
         'pangkat_golongan',
         'jabatan',
-        'tipe_jabatan', // PERBAIKAN: Sebelumnya 'tipe', disesuaikan dengan migration
+        'tipe_jabatan',
         'pendidikan',
         'tahun_menjabat',
         'foto',
         'urutan',
-        'warna_gradient',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [

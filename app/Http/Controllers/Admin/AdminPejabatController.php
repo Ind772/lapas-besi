@@ -73,7 +73,7 @@ class AdminPejabatController extends Controller
      */
     public function edit(Pejabat $pejabat)
     {
-        return view('admin.pejabat-edit', compact('pejabat'));
+        return view('admin.pejabat.edit', compact('pejabat'));
     }
 
     /**
@@ -82,15 +82,16 @@ class AdminPejabatController extends Controller
     public function update(Request $request, Pejabat $pejabat)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
-            'pangkat_golongan' => 'required|string|max:255',
-            'nip' => 'required|string|max:255',
-            'pendidikan' => 'nullable|string|max:255',
-            'tahun_menjabat' => 'nullable|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'tipe_jabatan' => 'required|in:kepala,struktural',
-            'urutan' => 'nullable|integer',
+        'nama' => 'required|string|max:255',
+        'nip' => 'required|string|max:255',
+        'pangkat_golongan' => 'required|string',
+        'jabatan' => 'required|string',
+        'tipe_jabatan' => 'required|in:kepala,struktural',
+        'pendidikan' => 'nullable|string',
+        'tahun_menjabat' => 'nullable|string',
+        'urutan' => 'nullable|integer',
+        'foto' => 'nullable|image|max:2048',
+        'is_active' => 'required|boolean',
         ]);
 
         // Upload foto baru jika ada
@@ -101,9 +102,6 @@ class AdminPejabatController extends Controller
             }
             $validated['foto'] = $request->file('foto')->store('pejabat', 'public');
         }
-
-        // Handle checkbox is_active
-        $validated['is_active'] = $request->has('is_active');
 
         $pejabat->update($validated);
 
