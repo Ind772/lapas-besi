@@ -77,7 +77,7 @@
                 </p>
                 <p class="flex items-center gap-2">
                     <i class="fas fa-code text-lapas-accent"></i>
-                    Dikembangkan oleh <span class="text-red-400">Anak Magang</span>
+                    <span class="text-red-400"></span>
                 </p>
             </div>
         </div>
