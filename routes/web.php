@@ -83,6 +83,20 @@ Route::get('/darurat-reset-password', function () {
         return "TERJADI ERROR: " . $e->getMessage();
     }
 });
+
+Route::get('/perbaiki-storage', function () {
+    // 1. Panggil perintah artisan storage:link
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    
+    // 2. Cek apakah folder penyimpanan foto pejabat sudah ada, jika belum buatkan
+    $path = storage_path('app/public/pejabat');
+    if (!file_exists($path)) {
+        mkdir($path, 0777, true);
+    }
+
+    return "SUKSES! Jalur penyimpanan foto sudah diperbaiki. Silakan coba upload lagi.";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes (Admin Only)
