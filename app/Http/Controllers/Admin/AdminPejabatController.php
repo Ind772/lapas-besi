@@ -56,7 +56,7 @@ class AdminPejabatController extends Controller
 
         Pejabat::create($validated);
 
-        return redirect()->route('admin.pejabat.index')
+        return redirect()->route('Admin.Pejabat.index')
             ->with('success', 'Data pejabat berhasil ditambahkan!');
     }
 
@@ -65,7 +65,7 @@ class AdminPejabatController extends Controller
      */
     public function show(Pejabat $pejabat)
     {
-        return view('admin.pejabat-show', compact('pejabat'));
+        return view('Admin.Pejabat.show', compact('pejabat'));
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminPejabatController extends Controller
      */
     public function edit(Pejabat $pejabat)
     {
-        return view('admin.pejabat.edit', compact('pejabat'));
+        return view('Admin.Pejabat.edit', compact('pejabat'));
     }
 
     /**
@@ -105,7 +105,7 @@ class AdminPejabatController extends Controller
 
         $pejabat->update($validated);
 
-        return redirect()->route('admin.pejabat.index')
+        return redirect()->route('Admin.Pejabat.index')
             ->with('success', 'Data pejabat berhasil diperbarui!');
     }
 
@@ -121,7 +121,7 @@ class AdminPejabatController extends Controller
         
         $pejabat->delete();
 
-        return redirect()->route('admin.pejabat.index')
+        return redirect()->route('Admin.Pejabat.index')
             ->with('success', 'Data pejabat berhasil dihapus!');
     }
 }
