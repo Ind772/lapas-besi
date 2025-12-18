@@ -65,19 +65,24 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/darurat-reset-password', function () {
-    // 1. Cari user admin
-    $user = User::where('email', 'admin@lapas.com')->first();
+    try {
+        // 1. Kita pakai alamat lengkap biar tidak error "Class not found"
+        $user = \App\Models\User::where('email', 'admin@lapas.com')->first();
 
-    if ($user) {
-        // 2. Ubah passwordnya menjadi "lapasbesi2803"
-        $user->password = Hash::make('lapasbesi2803');
-        $user->save();
-        return "SUKSES! Password untuk admin@lapas.com sudah diubah menjadi: lapasbesi2803";
+        if ($user) {
+            // 2. Reset password
+            $user->password = \Illuminate\Support\Facades\Hash::make('lapasbesi2803');
+            $user->save();
+            return "ALHAMDULILLAH SUKSES! Password admin@lapas.com sekarang adalah: lapasbesi2803";
+        }
+
+        return "GAGAL: User admin@lapas.com tidak ditemukan di database.";
+        
+    } catch (\Throwable $e) {
+        // 3. Jika masih error, tampilkan pesan error aslinya di layar
+        return "TERJADI ERROR: " . $e->getMessage();
     }
-
-    return "GAGAL: User admin@lapas.com tidak ditemukan. Pastikan emailnya benar.";
 });
-
 /*
 |--------------------------------------------------------------------------
 | Admin Routes (Admin Only)
