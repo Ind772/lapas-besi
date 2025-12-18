@@ -18,7 +18,7 @@ class AdminPejabatController extends Controller
             ->orderBy('urutan', 'asc')
             ->get();
         
-        return view('Admin\Pejabat\index', compact('pejabat'));
+        return view('Admin.Pejabat.index', compact('pejabat'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AdminPejabatController extends Controller
      */
     public function create()
     {
-        return view('Admin\Pejabat\create');
+        return view('Admin.Pejabat.create');
     }
 
     /**
