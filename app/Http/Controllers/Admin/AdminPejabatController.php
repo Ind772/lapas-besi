@@ -18,6 +18,7 @@ class AdminPejabatController extends Controller
             ->orderBy('urutan', 'asc')
             ->get();
         
+        // VIEW: Gunakan Huruf Besar (Sesuai Folder)
         return view('Admin.Pejabat.index', compact('pejabat'));
     }
 
@@ -26,6 +27,7 @@ class AdminPejabatController extends Controller
      */
     public function create()
     {
+        // VIEW: Gunakan Huruf Besar (Sesuai Folder)
         return view('Admin.Pejabat.create');
     }
 
@@ -51,12 +53,13 @@ class AdminPejabatController extends Controller
             $validated['foto'] = $request->file('foto')->store('pejabat', 'public');
         }
 
-        // Handle checkbox is_active (checkbox tidak terkirim jika tidak dicentang)
+        // Handle checkbox is_active
         $validated['is_active'] = $request->has('is_active');
 
         Pejabat::create($validated);
 
-        return redirect()->route('Admin.Pejabat.index')
+        // ROUTE: Gunakan Huruf KECIL (Sesuai web.php)
+        return redirect()->route('admin.pejabat.index')
             ->with('success', 'Data pejabat berhasil ditambahkan!');
     }
 
@@ -65,6 +68,7 @@ class AdminPejabatController extends Controller
      */
     public function show(Pejabat $pejabat)
     {
+        // VIEW: Gunakan Huruf Besar (Sesuai Folder)
         return view('Admin.Pejabat.show', compact('pejabat'));
     }
 
@@ -73,6 +77,7 @@ class AdminPejabatController extends Controller
      */
     public function edit(Pejabat $pejabat)
     {
+        // VIEW: Gunakan Huruf Besar (Sesuai Folder)
         return view('Admin.Pejabat.edit', compact('pejabat'));
     }
 
@@ -82,16 +87,17 @@ class AdminPejabatController extends Controller
     public function update(Request $request, Pejabat $pejabat)
     {
         $validated = $request->validate([
-        'nama' => 'required|string|max:255',
-        'nip' => 'required|string|max:255',
-        'pangkat_golongan' => 'required|string',
-        'jabatan' => 'required|string',
-        'tipe_jabatan' => 'required|in:kepala,struktural',
-        'pendidikan' => 'nullable|string',
-        'tahun_menjabat' => 'nullable|string',
-        'urutan' => 'nullable|integer',
-        'foto' => 'nullable|image|max:2048',
-        'is_active' => 'required|boolean',
+            'nama' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
+            'pangkat_golongan' => 'required|string',
+            'jabatan' => 'required|string',
+            'tipe_jabatan' => 'required|in:kepala,struktural',
+            'pendidikan' => 'nullable|string',
+            'tahun_menjabat' => 'nullable|string',
+            'urutan' => 'nullable|integer',
+            'foto' => 'nullable|image|max:2048',
+            // is_active biasanya boolean atau checkbox, validasi boolean lebih aman
+            'is_active' => 'nullable', 
         ]);
 
         // Upload foto baru jika ada
@@ -103,9 +109,13 @@ class AdminPejabatController extends Controller
             $validated['foto'] = $request->file('foto')->store('pejabat', 'public');
         }
 
+        // Handle checkbox update
+        $validated['is_active'] = $request->has('is_active');
+
         $pejabat->update($validated);
 
-        return redirect()->route('Admin.Pejabat.index')
+        // ROUTE: Gunakan Huruf KECIL (Sesuai web.php)
+        return redirect()->route('admin.pejabat.index')
             ->with('success', 'Data pejabat berhasil diperbarui!');
     }
 
@@ -121,7 +131,8 @@ class AdminPejabatController extends Controller
         
         $pejabat->delete();
 
-        return redirect()->route('Admin.Pejabat.index')
+        // ROUTE: Gunakan Huruf KECIL (Sesuai web.php)
+        return redirect()->route('admin.pejabat.index')
             ->with('success', 'Data pejabat berhasil dihapus!');
     }
 }
