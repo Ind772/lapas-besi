@@ -3,11 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// ---------------------------------------------------------
-// PERHATIKAN: Posisi 'use' harus DISINI (Di atas class)
-// ---------------------------------------------------------
+// ------------------------------------------------------------
+// PERBAIKAN: Baris 'use' WAJIB ada di sini (Sebelum 'class')
+// ------------------------------------------------------------
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,27 +24,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // 1. Force HTTPS untuk Railway
+        // 1. Force HTTPS (Wajib untuk Railway)
         if($this->app->environment('production')) {
             URL::forceScheme('https');
         }
 
-        // 2. AUTO-FIX STORAGE (Jalankan hanya di Production/Railway)
+        // 2. Auto-Fix Storage Link (Hanya di Railway/Production)
         if($this->app->environment('production')) {
             
-            // A. Pastikan folder penyimpanan fisik ada
+            // A. Cek folder penyimpanan asli
             $path = storage_path('app/public/pejabat');
             if (!file_exists($path)) {
-                // Buat folder dengan izin akses penuh (0777)
-                mkdir($path, 0777, true);
+                @mkdir($path, 0777, true); // Pakai @ agar tidak error jika sudah ada
             }
 
-            // B. Pastikan Symlink (Jembatan) ada
+            // B. Cek Symlink (Jembatan)
             $linkPath = public_path('storage');
-            
-            // Cek apakah linknya putus atau belum ada
             if (!file_exists($linkPath)) {
-                // Jalankan perintah artisan storage:link
+                // Jalankan perintah link
                 Artisan::call('storage:link');
             }
         }
