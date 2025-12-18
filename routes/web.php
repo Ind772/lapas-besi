@@ -84,17 +84,17 @@ Route::get('/darurat-reset-password', function () {
     }
 });
 
-Route::get('/perbaiki-storage', function () {
-    // 1. Panggil perintah artisan storage:link
+// Rute untuk memperbaiki gambar (Hanya dijalankan sekali)
+Route::get('/perbaiki-gambar', function () {
+    // 1. Hapus link lama jika ada (biar bersih)
+    if (file_exists(public_path('storage'))) {
+        unlink(public_path('storage'));
+    }
+    
+    // 2. Buat link baru (Symlink)
     \Illuminate\Support\Facades\Artisan::call('storage:link');
     
-    // 2. Cek apakah folder penyimpanan foto pejabat sudah ada, jika belum buatkan
-    $path = storage_path('app/public/pejabat');
-    if (!file_exists($path)) {
-        mkdir($path, 0777, true);
-    }
-
-    return "SUKSES! Jalur penyimpanan foto sudah diperbaiki. Silakan coba upload lagi.";
+    return "BERHASIL! Jembatan penghubung folder foto sudah dibangun. Silakan kembali ke halaman Admin dan Refresh.";
 });
 
 /*
