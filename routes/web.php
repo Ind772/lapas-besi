@@ -64,6 +64,20 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/account-profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/darurat-reset-password', function () {
+    // 1. Cari user admin
+    $user = User::where('email', 'admin@lapas.com')->first();
+
+    if ($user) {
+        // 2. Ubah passwordnya menjadi "lapasbesi2803"
+        $user->password = Hash::make('lapasbesi2803');
+        $user->save();
+        return "SUKSES! Password untuk admin@lapas.com sudah diubah menjadi: lapasbesi2803";
+    }
+
+    return "GAGAL: User admin@lapas.com tidak ditemukan. Pastikan emailnya benar.";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes (Admin Only)
