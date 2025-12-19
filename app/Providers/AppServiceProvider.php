@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// ------------------------------------------------------------
-// PERBAIKAN: Baris 'use' WAJIB ada di sini (Sebelum 'class')
-// ------------------------------------------------------------
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 

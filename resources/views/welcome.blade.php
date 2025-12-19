@@ -76,7 +76,7 @@
             <div>
                 <h3 class="text-3xl font-bold text-lapas-navy mb-4">Lembaga Pemasyarakatan Kelas IIA Besi</h3>
                 <p class="text-gray-600 mb-4 leading-relaxed">
-                    Lembaga Pemasyarakatan Kelas IIA Besi merupakan salah satu unit pelaksana teknis di lingkungan Kementerian Hukum dan HAM yang berlokasi di Pulau Nusakambangan, Cilacap, Jawa Tengah.
+                    Lembaga Pemasyarakatan Kelas IIA Besi merupakan salah satu unit pelaksana teknis di lingkungan Kementerian Imigrasi dan Pemasyarakatan yang berlokasi di Pulau Nusakambangan, Cilacap, Jawa Tengah.
                 </p>
                 <p class="text-gray-600 mb-6 leading-relaxed">
                     Sebagai lembaga pemasyarakatan dengan tingkat keamanan maksimum, kami berkomitmen untuk melaksanakan pembinaan narapidana dengan mengedepankan prinsip-prinsip hak asasi manusia dan keadilan.
