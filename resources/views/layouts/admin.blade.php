@@ -13,6 +13,8 @@
     {{-- 2. FONT AWESOME (CDN) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link rel="icon" href="{{ asset('images/logo-besi.png') }}">
+
     {{-- 3. CUSTOM CSS UNTUK LAYOUT ADMIN --}}
     <style>
         body {

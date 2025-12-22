@@ -10,22 +10,20 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" href="{{ asset('images/logo-besi.png') }}">
 
         {{-- CSS GLOBAL UNTUK SCROLLING --}}
         <style>
             /* DEFINISI ID SECTION */
             #beranda, #profil, #layanan, #berita, #kontak {
                 /* 1. Tampilan Default (HP/Mobile) */
-                /* Navbar di HP biasanya lebih kecil, jadi jarak scroll-nya jangan terlalu besar */
-                scroll-margin-top: 5rem; /* Sekitar 80px */
+                scroll-margin-top: 5rem;
             }
 
-            /* 2. Tampilan Desktop (Layar Besar) */
-            /* Tailwind 'lg' breakpoint biasanya mulai dari 1024px */
+            /* 2. Tampilan Desktop */
             @media (min-width: 1024px) {
                 #beranda, #profil, #layanan, #berita, #kontak {
-                    /* Navbar di Desktop biasanya lebih tinggi, butuh jarak lebih */
-                    scroll-margin-top: 5rem; /* Sekitar 112px */
+                    scroll-margin-top: 5rem;
                 }
             }
         </style>
