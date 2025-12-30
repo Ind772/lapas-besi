@@ -114,7 +114,7 @@
                 </div>
                 <h3 class="text-xl font-bold mb-3 text-lapas-navy">Kunjungan Offline</h3>
                 <p class="text-gray-600 mb-4">Layanan pertemuan langsung bagi keluarga warga binaan dengan jadwal dan prosedur yang telah ditentukan.</p>
-                <a href="#" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
+                <a href="https://www.instagram.com/p/DSZY_iJkokC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
                     Selengkapnya 
                     <i class="fas fa-arrow-right ml-1 group-hover:ml-2 transition-all"></i>
                 </a>
@@ -127,7 +127,7 @@
                 </div>
                 <h3 class="text-xl font-bold mb-3 text-lapas-navy">Tutorial Topup Brizzi</h3>
                 <p class="text-gray-600 mb-4">Panduan lengkap pengisian kartu Brizzi bagi warga binaan yang dilakukan oleh pihak keluarga.</p>
-                <a href="#" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
+                <a href="https://bri.co.id/how-to-top-up-brizzi" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
                     Selengkapnya 
                     <i class="fas fa-arrow-right ml-1 group-hover:ml-2 transition-all"></i>
                 </a>
@@ -140,7 +140,7 @@
                 </div>
                 <h3 class="text-xl font-bold mb-3 text-lapas-navy">Layanan Pengaduan</h3>
                 <p class="text-gray-600 mb-4">Layanan pengaduan disediakan untuk memudahkan masyarakat menyampaikan keluhan dan mendapatkan solusi.</p>
-                <a href="#" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
+                <a href="https://www.instagram.com/p/DSZY20Bkprl/?img_index=2" class="text-lapas-accent font-semibold hover:text-lapas-navy inline-flex items-center group-hover:gap-2 transition-all">
                     Selengkapnya 
                     <i class="fas fa-arrow-right ml-1 group-hover:ml-2 transition-all"></i>
                 </a>
